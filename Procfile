@@ -1,0 +1,1 @@
+web: gunicorn emo_predict:app

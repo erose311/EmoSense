@@ -1,0 +1,114 @@
+<html>
+<head>
+<title> Emotion Recognition </title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+<style>
+	.parent {
+    		display: flex;
+    		align-items: center;
+		height: 90vh;
+  	}
+	.child{
+		width: 40%;
+		height: 72%;
+		margin: 0 auto;
+		background-color: #ede8d8;
+		box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+	h1{
+		padding-bottom: 20px;
+		margin-top: -40px;
+		font-size:28px;
+	}
+	input[type="text"] {
+		background: transparent;
+		border: none;
+		margin-left: -35%;
+		width: 170%;
+		border-bottom: 1px dotted #060b1f;
+		color: #060b1f;
+		outline: none;
+		 font-size: 13px;
+  line-height: 32px;
+  letter-spacing: 0.5px;
+  outline: none;
+  -webkit-transition: all 200ms linear;
+  transition: all 200ms linear;
+	}
+	button{
+    		background-color: #060b1f;
+    		color: white;
+    		padding: 7px 13px;
+    		border: none;
+    		border-radius: 5px;
+    		margin-top: 30px;
+		font-size:16px;
+  	}
+body, #sentence, #pred, #result{
+font-family: 'EB Garamond', serif;
+}
+
+#result{
+	margin-top: -10px;
+	color: #060b1f;
+	font-size:16px;
+}
+
+#predicted-emotion{
+	font-weight:bold;
+}
+
+</style>
+</head>
+<body style="background-color: #060b1f" >
+  <div class="parent">
+    <div class="child">
+      <h1 style="color: #060b1f">EMOTION PREDICTOR</h1>
+		 <form>
+    	<input type="text" name="sentence" id = "sentence" class="form-style"  placeholder="Enter Sentence" required="required">
+		 	<button type="submit" id="pred">Predict</button> 	
+		 </form>
+     <div id="result">
+          <p>Predicted Emotion: <span id="predicted-emotion"></span></p>
+        </div>
+    </div>
+  </div>
+</body>
+</html>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script>
+
+$(document).ready(function() {
+  $("#result").hide();
+  $('#pred').on('click', function(event) {
+    event.preventDefault(); 
+$("#result").show();
+	  console.log('button was clicked');
+
+    var formData = {};
+    formData['sentence'] = $('#sentence').val();
+   
+		$.ajax({
+			url : "http://127.0.0.1:5000/predict",
+			type: "POST",
+			data: formData,
+			crossDomain: true,
+	  	dataType: "json",
+			success: function(response){
+				$("#predicted-emotion").text(response.predicted_emotion);
+			}, 
+			error: function(xhr, status, error) {
+				console.log(error);
+			}
+		});
+	
+  });
+});
+
+</script>
