@@ -4,7 +4,6 @@
     <list default="true" id="cc96ffdd-1117-4c89-9d84-487fb7db6914" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/emo_predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/emo_predict.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
