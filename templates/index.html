@@ -69,12 +69,12 @@ font-family: 'EB Garamond', serif;
   <div class="parent">
     <div class="child">
       <h1 style="color: #060b1f">EMOTION PREDICTOR</h1>
-		 <form>
-    	<input type="text" name="sentence" id = "sentence" class="form-style"  placeholder="Enter Sentence" required="required">
+		 <form onsubmit="validate(event)">
+    	<input type="text" name="sentence" id = "sentence" class="form-style"  placeholder="Enter Sentence" required />
 		 	<button type="submit" id="pred">Predict</button> 	
 		 </form>
      <div id="result">
-          <p>Predicted Emotion: <span id="predicted-emotion"></span></p>
+          <p id = "output">Predicted Emotion: <span id="predicted-emotion"></span></p>
         </div>
     </div>
   </div>
@@ -85,22 +85,30 @@ font-family: 'EB Garamond', serif;
 <script>
 
 $(document).ready(function() {
-  $("#result").hide();
+  $("#output").hide();
   $('#pred').on('click', function(event) {
     event.preventDefault(); 
-$("#result").show();
+$("#output").hide();
+$(function() {
+    setTimeout(function() {
+        $("#output").fadeIn('slow')
+    }, 50);
+});
+
+
 	  console.log('button was clicked');
 
     var formData = {};
     formData['sentence'] = $('#sentence').val();
    
 		$.ajax({
-			url : "http://127.0.0.1:5000/predict",
+			url : "https://emotion-recognizer.herokuapp.com/predict",
 			type: "POST",
 			data: formData,
 			crossDomain: true,
 	  	dataType: "json",
 			success: function(response){
+
 				$("#predicted-emotion").text(response.predicted_emotion);
 			}, 
 			error: function(xhr, status, error) {

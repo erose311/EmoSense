@@ -43,6 +43,8 @@ def predict_api():
     if request.method == 'POST':
         sentence = request.form['sentence']
         print("Received sentence:", sentence)
+        if len(sentence) == 0:
+            return jsonify({'predicted_emotion': "Please enter a sentence to continue."})
         predicted_emotion = predict_emotion(sentence)
         print("Emotion: ", predicted_emotion)
         return jsonify({'predicted_emotion': predicted_emotion})
